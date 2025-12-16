@@ -1,0 +1,5 @@
+export { HomePage } from './HomePage'
+export { SignupPage } from './SignupPage'
+export { LoginPage } from './LoginPage'
+export { ProfilePage } from './ProfilePage'
+export { SettingsPage } from './SettingsPage'
