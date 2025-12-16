@@ -1,6 +1,9 @@
 import { useEffect } from "react"
-import { useChatStore } from "../store/useChatStore"
+import { useChatStore } from "../store/useChatStore.js"
 
+import { ChatHeader } from "./ChatHeader"
+import { MessageInput } from "./MessageInput"
+import { MessageSkeleton } from "./skeletons/MessageSkeleton.jsx"
 export const ChatContainer = () => {
 
     const { messages, getMessages, isMessagesLoading, selectedUser } = useChatStore()
@@ -9,11 +12,17 @@ export const ChatContainer = () => {
         getMessages(selectedUser._id)
     }, [selectedUser._id, getMessages]) //Don't understand why getMessages is included in the Array
 
-    if(isMessagesLoading) return <div>Loading...</div>
+    if(isMessagesLoading) return (
+        <div className="flex-1 flex flex-col overflow-auto">
+            <ChatHeader />
+            <MessageSkeleton />
+            <MessageInput />
+        </div>
+    )
 
 
     return (
-        <div>
+        <div className="flex-1 flex flex-col overflow-auto">
             <ChatHeader />
 
             <p>Messages...</p>
