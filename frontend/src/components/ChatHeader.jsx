@@ -1,6 +1,7 @@
 import { X } from "lucide-react";
 import { useAuthStore } from "../store/useAuthStore";
 import { useChatStore } from "../store/useChatStore";
+import Avatar_1 from '../assets/Avatar_1.png'
 
 export const ChatHeader = () => {
   const { selectedUser, setSelectedUser } = useChatStore();
@@ -13,7 +14,7 @@ export const ChatHeader = () => {
           {/* Avatar */}
           <div className="avatar">
             <div className="size-10 rounded-full relative">
-              <img src={selectedUser.profilePic || "../Assets/Avatar_5.png"} alt={selectedUser.fullName} />
+              <img src={selectedUser.profilePic || Avatar_1} alt={selectedUser.fullName} />
             </div>
           </div>
 

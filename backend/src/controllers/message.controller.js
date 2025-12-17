@@ -42,8 +42,9 @@ export const sendMessages = async (req, res) => {
     try {
         const senderId = req.user._id
         const { id: receiverId } = req.params
-        const { text, image } = req.body
-        image = null
+        const { text } = req.body //'image' not extracted due to no Cloudinary setup
+        //'image' default value is set to null instead when creating a doc. instance
+        
         //(Maybe) TODO: Set up Cloudinary for uploading images to DB
         // let imageUrl
         // if(image) {
@@ -53,7 +54,7 @@ export const sendMessages = async (req, res) => {
         
         //Change image: null to imageUrl if cloudinary is setup
         const newMessage = new Message({
-            senderId, receiverId, text, image
+            senderId, receiverId, text, image: null
         })
         await newMessage.save()
 
