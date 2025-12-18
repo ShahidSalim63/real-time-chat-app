@@ -4,13 +4,12 @@ import dotenv from 'dotenv'
 
 import cookieParser from 'cookie-parser'
 
+import { app, server } from './lib/socket.js'
 import authRoutes from './routes/auth.route.js'
 import messageRoutes from './routes/message.route.js'
 import { connectDB } from './lib/db.js'
 
 dotenv.config()
-
-const app = express()
 
 const PORT = process.env.PORT
 
@@ -35,7 +34,7 @@ app.use('/api/auth', authRoutes)
 app.use('/api/messages', messageRoutes)
 
 
-app.listen(PORT, '0.0.0.0', () => {
+server.listen(PORT, '0.0.0.0', () => {
     console.log(`Server is listening on Port ${PORT}`)
     connectDB()
 })

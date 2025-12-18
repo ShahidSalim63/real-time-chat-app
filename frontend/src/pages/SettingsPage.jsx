@@ -19,7 +19,7 @@ export const SettingsPage = () => {
                     <p className="text-sm text-base-content/70">Choose a theme for your chat interface</p>
                 </div>
 
-                <div className="grid grid-cols-4 sm:grid-cols-6 md:grid-cols-8 gap-2">
+                <div className="grid grid-cols-4 sm:grid-cols-6 md:grid-cols-8 gap-1">
                     {THEMES.map((t) => (
                         <button
                             key={t}
@@ -49,7 +49,7 @@ export const SettingsPage = () => {
                 {/*Preview Section*/}
                 <div className='text-lg font-semibold mb-3'>Preview</div>
                 <div className='rounded-xl border border-base-300 overflow-hidden bg-base-100 shadow'>
-                    <div className='p-4 bg-base-200'>
+                    <div className='p-4 bg-base-300'>
                         <div className='max-w-lg mx-auto'>
                             {/*Mock Chat UI*/}
                             <div className='bg-base-100 rounded-xl shadow-sm overflow-hidden'>

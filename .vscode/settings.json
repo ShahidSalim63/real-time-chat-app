@@ -1,17 +1,17 @@
 {
     "files.exclude": {
         "**/node_modules": true,
-        "**/package.json": true,
+        "**/package.json": false,
         "**/package-lock.json": true,
 
         "**/frontend": false,
         "**/public": false,
-        "**/.gitignore": true,
+        "**/.gitignore": false,
         "**/eslint.config.js": true,
         "**/README.md": true,
         "**/assets": false,
         "**/index.html": true,
-        "**/vite.config.js": true,
+        "**/vite.config.js": false,
 
         "**/backend": false,
     },

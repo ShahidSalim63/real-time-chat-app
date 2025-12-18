@@ -1,6 +1,7 @@
-import { useEffect } from "react"
+import { useEffect, useRef } from "react"
 import { useChatStore } from "../store/useChatStore.js"
 import { useAuthStore } from "../store/useAuthStore.js"
+import { formatMessageTime } from '../lib/utils.js'
 
 import { ChatHeader } from "./ChatHeader"
 import { MessageInput } from "./MessageInput"
@@ -11,12 +12,23 @@ import { avatars } from "../assets/index.js"
 
 export const ChatContainer = () => {
 
-    const { messages, getMessages, isMessagesLoading, selectedUser } = useChatStore()
+    const { messages, getMessages, isMessagesLoading, selectedUser, 
+        subscribeToMessages, unsubscribeFromMessages } = useChatStore()
     const { authUser } = useAuthStore()
+    const messageEndRef = useRef(null)
 
     useEffect(() => {
         getMessages(selectedUser._id)
-    }, [selectedUser._id, getMessages]) //Don't understand why getMessages is included in the Array
+        subscribeToMessages()
+
+        return () => unsubscribeFromMessages() //For performance reason
+    }, [selectedUser._id, getMessages, subscribeToMessages, unsubscribeFromMessages])
+     //Don't understand why getMessages is included in the Array
+
+     useEffect(() => {
+        if (messageEndRef.current && messages)
+            messageEndRef.current.scrollIntoView({ behavior: 'smooth' })
+     }, [messages])
 
     if(isMessagesLoading) return (
         <div className="flex-1 flex flex-col overflow-auto">
@@ -35,7 +47,9 @@ export const ChatContainer = () => {
                 {messages.map(message => (
                     <div
                         key={message._id}
-                        className={`chat ${message.senderId === authUser._id ? "chat-end" : "chat-start"}`}>
+                        className={`chat ${message.senderId === authUser._id ? "chat-end" : "chat-start"}`}
+                        ref = {messageEndRef}
+                        >
                             <div className="chat-image avatar">
                                 <div className="size-10 rounded-full border">
                                     <img src={
@@ -48,7 +62,7 @@ export const ChatContainer = () => {
                             </div>
                             <div className="chat-header mb-1 ">
                                 <time className="text-xs opacity-50 ml-1">
-                                    {message.createdAt}
+                                    {formatMessageTime(message.createdAt)}
                                 </time>
                             </div>
                             <div className="chat-bubble flex">
